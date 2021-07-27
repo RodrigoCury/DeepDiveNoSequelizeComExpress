@@ -1,4 +1,6 @@
+# Custom Ignores
 /src/config
+projectFiles/
 
 # Logs
 logs

@@ -1,16 +1,30 @@
-const express = require('express')
+/**
+ * Imports
+ */
+
+// Env Vars
 require('dotenv').config()
 
+// Libs
+const express = require('express')
+
+// Routes 
+const routes = require('./routes')
+
+
+/**
+ * Setup
+ */
+
+// App
 const app = express()
 
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json({ extended: true }))
+// Routing
+routes(app)
 
-app.get('/teste', (req, res, next) => {
-    res.status(200)
-    res.send({ mensagem: "OKAY" })
-})
-
+/**
+ * Serving
+ */
 app.listen(process.env.PORT || 3000, () => {
     console.log(`
         Servidor Subido Com Sucesso

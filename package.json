@@ -1,0 +1,26 @@
+{
+  "name": "deepdivenosequelizecomexpress",
+  "version": "1.0.0",
+  "description": "Aprendendo mais profundamento o Sequelize",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon .src/index.js",
+    "test": "nodemon --inspect .src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RodrigoCury/DeepDiveNoSequelizeComExpress.git"
+  },
+  "author": "Rodrigo Cury",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RodrigoCury/DeepDiveNoSequelizeComExpress/issues"
+  },
+  "homepage": "https://github.com/RodrigoCury/DeepDiveNoSequelizeComExpress#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.12",
+    "sequelize": "^6.6.5"
+  }
+}

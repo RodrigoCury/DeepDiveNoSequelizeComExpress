@@ -13,6 +13,16 @@ class TurmaControler {
         })
     }
 
+    static async createOne(turma) {
+        return await database.Turmas.create(Object.assign({}, turma, { data_inicio: Date.now() }))
+    }
+
+    static async updateOne(id, turma) {
+        return await database.Turmas.update(turma, {
+            where: { id }
+        })
+    }
+
     static async deleteOne(id) {
         await database.Turmas.destroy({
             where: {

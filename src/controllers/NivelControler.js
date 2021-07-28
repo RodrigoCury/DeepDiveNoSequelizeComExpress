@@ -13,6 +13,16 @@ class NivelControler {
         })
     }
 
+    static async createOne(nivel) {
+        return await database.Niveis.create(nivel)
+    }
+
+    static async updateOne(id, nivel) {
+        return await database.Niveis.update(nivel, {
+            where: { id }
+        })
+    }
+
     static async deleteOne(id) {
         await database.Niveis.destroy({
             where: {

@@ -29,6 +29,33 @@ router.get('/:id', async (req, res, next) => {
     }
 })
 
+// POST new Niveis
+router.post('/', async (req, res, next) => {
+    try {
+        const nivel = req.body
+        await NivelControler.createOne(nivel)
+        res.status(204).end()
+    } catch (error) {
+        res.status(400).json({
+            mensagem: error.message
+        })
+    }
+})
+
+// PUT on Niveis by ID
+router.put('/:id', async (req, res, next) => {
+    try {
+        const id = req.params.id
+        const nivel = req.body
+        await NivelControler.updateOne(id, nivel)
+        res.status(204).end()
+    } catch (error) {
+        res.status(400).json({
+            mensagem: error.message
+        })
+    }
+})
+
 router.delete('/:id', async (req, res, next) => {
     try {
         const id = req.params.id

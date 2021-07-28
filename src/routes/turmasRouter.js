@@ -29,6 +29,34 @@ router.get('/:id', async (req, res, next) => {
     }
 })
 
+
+// POST new Turma
+router.post('/', async (req, res, next) => {
+    try {
+        const nivel = req.body
+        await TurmaControler.createOne(nivel)
+        res.status(204).end()
+    } catch (error) {
+        res.status(400).json({
+            mensagem: error.message
+        })
+    }
+})
+
+// PUT on Turmas by ID
+router.put('/:id', async (req, res, next) => {
+    try {
+        const id = req.params.id
+        const turma = req.body
+        await TurmaControler.updateOne(id, turma)
+        res.status(204).end()
+    } catch (error) {
+        res.status(400).json({
+            mensagem: error.message
+        })
+    }
+})
+
 router.delete('/:id', async (req, res, next) => {
     try {
         const id = req.params.id

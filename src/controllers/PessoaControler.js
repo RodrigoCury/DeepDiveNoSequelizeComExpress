@@ -41,6 +41,54 @@ class PessoaControler {
             }
         })
     }
+
+    // Find All registrations for a single Person
+    static async getRegistrations(id) {
+        return await database.Matriculas.findAll({
+            where: {
+                estudante_id: id
+            }
+        })
+    }
+
+    // Find One registration for a Person
+    static async getRegistration(estudanteId, matriculaId) {
+        return await database.Matriculas.findOne({
+            where: {
+                id: matriculaId,
+                estudante_id: estudanteId,
+            }
+        })
+    }
+
+    // Create registration for a Person
+    static async createRegistration(estudanteId, matricula) {
+        return await database.Matriculas.create(
+            Object.assign({}, { estudante_id: estudanteId }, matricula)
+        )
+    }
+
+    // Update Registration for a Person
+    static async updateRegistration(estudanteId, matriculaId, matricula) {
+        return await database.Matriculas.update(
+            matricula,
+            {
+                where: {
+                    id: matriculaId,
+                    estudante_id: estudanteId
+                }
+            })
+    }
+
+    // Delete a Registration
+    static async deleteRegistration(estudanteId, matriculaId) {
+        await database.Matriculas.destroy({
+            where: {
+                id: matriculaId,
+                estudante_id: estudanteId
+            }
+        })
+    }
 }
 
 module.exports = PessoaControler

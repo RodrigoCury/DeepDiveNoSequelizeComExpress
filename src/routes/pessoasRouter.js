@@ -67,4 +67,72 @@ router.delete('/:id', async (req, res, next) => {
         })
     }
 })
+
+// GET all Registrations from one Person
+router.get('/:estudanteId/matriculas', async (req, res, next) => {
+    try {
+        const { estudanteId } = req.params
+        const matriculas = await PessoaControler.getRegistrations(estudanteId)
+        res.status(200).json(matriculas)
+    } catch (error) {
+        res.status(400).json({
+            mensagem: error.message
+        })
+    }
+})
+
+// GET one Registration from a Person and Registrations ID
+router.get('/:estudanteId/matriculas/:matriculaId', async (req, res, next) => {
+    try {
+        const { estudanteId, matriculaId } = req.params
+        const matricula = await PessoaControler.getRegistration(estudanteId, matriculaId)
+        res.status(200).json(matricula)
+    } catch (error) {
+        res.status(400).json({
+            mensagem: error.message
+        })
+    }
+})
+
+// Post a new Registration for a Person
+router.post('/:estudanteId/matriculas', async (req, res, next) => {
+    try {
+        const { estudanteId } = req.params
+        const matricula = req.body
+        await PessoaControler.createRegistration(estudanteId, matricula)
+        res.status(204).end()
+    } catch (error) {
+        res.status(400).json({
+            mensagem: error.message
+        })
+    }
+})
+
+// Update a Registration for a Person
+router.put('/:estudanteId/matriculas/:matriculaId', async (req, res, next) => {
+    try {
+        const { estudanteId, matriculaId } = req.params
+        const matricula = req.body
+        await PessoaControler.updateRegistration(estudanteId, matriculaId, matricula)
+        res.status(204).end()
+    } catch (error) {
+        res.status(400).json({
+            mensagem: error.message
+        })
+    }
+})
+
+// Delete a Registration for a Person
+router.delete('/:estudanteId/matriculas/:matriculaId', async (req, res, next) => {
+    try {
+        const { estudanteId, matriculaId } = req.params
+        await PessoaControler.deleteRegistration(estudanteId, matriculaId)
+        res.status(204).end()
+    } catch (error) {
+        res.status(400).json({
+            mensagem: error.message
+        })
+    }
+})
+
 module.exports = router

@@ -14,7 +14,18 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Pessoas.init({
-    nome: DataTypes.STRING,
+    nome: {
+      type: DataTypes.STRING,
+      validate: {
+        validar: dados => {
+          if (dados.length < 3) {
+            throw new Error("Nome deve ter mais de 3 caracteres")
+          } else if (dados.length > 32) {
+            throw new Error("Nome deve ter menos de 32 caracteres")
+          }
+        }
+      }
+    },
     ativo: DataTypes.BOOLEAN,
     email: {
       type: DataTypes.STRING,

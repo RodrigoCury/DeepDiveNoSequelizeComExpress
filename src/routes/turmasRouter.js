@@ -31,6 +31,19 @@ router.get('/:id', async (req, res, next) => {
     }
 })
 
+// GET by ID
+router.get('/:id/matriculas', async (req, res, next) => {
+    try {
+        const id = req.params.id
+        const matriculas = await TurmaControler.getRegistrationsPerClass(id)
+        res.status(200).json(matriculas)
+    } catch (error) {
+        res.status(400).json({
+            mensagem: error.message
+        })
+    }
+})
+
 
 // POST new Turma
 router.post('/', async (req, res, next) => {

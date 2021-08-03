@@ -3,6 +3,13 @@ const Op = require('sequelize').Op
 
 // DAO
 class TurmaControler {
+    static async getRegistrationsPerClass(classId) {
+        return await database.Matriculas.findAndCountAll({
+            where: { turma_id: Number(classId), status: "confirmado" },
+            order: [['estudante_id', 'DESC']]
+        })
+    }
+
     static async getAll(dataInicial = undefined, dataFinal = undefined) {
         const where = {}
 

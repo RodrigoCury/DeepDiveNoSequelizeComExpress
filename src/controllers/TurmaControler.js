@@ -1,9 +1,27 @@
 const database = require('../models')
+const Op = require('sequelize').Op
 
 // DAO
 class TurmaControler {
-    static async getAll() {
-        return await database.Turmas.findAll()
+    static async getAll(dataInicial = undefined, dataFinal = undefined) {
+        const where = {}
+
+        if (dataInicial && !dataFinal) {
+            where.data_inicio = {
+                [Op.gte]: dataInicial
+            }
+        } else if (dataInicial && dataFinal) {
+            where.data_inicio = {
+                [Op.gte]: dataInicial,
+                [Op.lte]: dataFinal
+            }
+        } else if (!dataInicial && dataFinal) {
+            where.data_inicio = {
+                [Op.lte]: dataFinal
+            }
+        }
+
+        return await database.Turmas.findAll({ where })
     }
 
     static async getOne(id) {

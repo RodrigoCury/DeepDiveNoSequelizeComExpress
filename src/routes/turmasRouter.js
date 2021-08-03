@@ -7,7 +7,9 @@ const router = require('express').Router()
 // GET List
 router.get('/', async (req, res, next) => {
     try {
-        const listaDeTurmas = await TurmaControler.getAll()
+        const dataInicial = req.query['data_inicial']
+        const dataFinal = req.query['data_final']
+        const listaDeTurmas = await TurmaControler.getAll(dataInicial, dataFinal)
         res.status(200).json(listaDeTurmas)
     } catch (error) {
         res.status(400).json({

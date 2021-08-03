@@ -1,8 +1,25 @@
 const database = require('../models')
-const Op = require('sequelize').Op
+const { Op, literal } = require('sequelize')
 
 // DAO
 class TurmaControler {
+
+    static async getFullClasses() {
+        const lotacaoTurma = 3
+        const turmasLotadas = await database.Matriculas.findAndCountAll({
+            where: {
+                status: 'confirmado'
+            },
+            attributes: ['turma_id'],
+            group: ['turma_id'],
+            having: literal(`count(turma_id) >= ${lotacaoTurma}`)
+        })
+
+        console.log(turmasLotadas);
+
+        return turmasLotadas
+    }
+
     static async getRegistrationsPerClass(classId) {
         return await database.Matriculas.findAndCountAll({
             where: { turma_id: Number(classId), status: "confirmado" },

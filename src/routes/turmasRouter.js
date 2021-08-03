@@ -18,6 +18,18 @@ router.get('/', async (req, res, next) => {
     }
 })
 
+// GET full Classes by ID
+router.get('/matriculasLotadas', async (req, res, next) => {
+    try {
+        const matriculas = await TurmaControler.getFullClasses()
+        res.status(200).json(matriculas)
+    } catch (error) {
+        res.status(400).json({
+            mensagem: error.message
+        })
+    }
+})
+
 // GET by ID
 router.get('/:id', async (req, res, next) => {
     try {
@@ -31,7 +43,7 @@ router.get('/:id', async (req, res, next) => {
     }
 })
 
-// GET by ID
+// GET Registrations by ID
 router.get('/:id/matriculas', async (req, res, next) => {
     try {
         const id = req.params.id

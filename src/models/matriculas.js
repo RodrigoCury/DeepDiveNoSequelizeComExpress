@@ -14,7 +14,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Matriculas.init({
-    status: DataTypes.STRING,
+    status: {
+      type: DataTypes.STRING,
+      validate: {
+        isIn: {
+          args: [["confirmado", "cancelado"]],
+          msg: "Status de Matriculas devem ser 'confirmado' ou 'cancelado'"
+        }
+      }
+    },
+
   }, {
     sequelize,
     paranoid: true,

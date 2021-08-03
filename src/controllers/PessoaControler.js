@@ -54,11 +54,12 @@ class PessoaControler {
 
     // Find All registrations for a single Person
     static async getRegistrations(id) {
-        return await database.Matriculas.findAll({
-            where: {
-                estudante_id: id
-            }
+        const pessoa = await database.Pessoas.findOne({
+            where: { id }
         })
+        const matriculas = await pessoa.getAulasMatriculadas()
+
+        return Object.assign(pessoa.dataValues, { matriculas: matriculas })
     }
 
     // Find One registration for a Person

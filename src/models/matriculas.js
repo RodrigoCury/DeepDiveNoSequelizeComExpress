@@ -25,6 +25,9 @@ module.exports = (sequelize, DataTypes) => {
     },
 
   }, {
+    hooks: {
+      beforeValidate: (matricula, opts) => matricula.status = matricula.status.toLowerCase()
+    },
     sequelize,
     paranoid: true,
     modelName: 'Matriculas',

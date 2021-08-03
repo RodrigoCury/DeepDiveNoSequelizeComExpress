@@ -2,8 +2,12 @@ const database = require('../models')
 
 // DAO
 class PessoaControler {
+    static async getAllActive() {
+        return await database.Pessoas.findAll({})
+    }
+
     static async getAll() {
-        return await database.Pessoas.findAll()
+        return await database.Pessoas.scope("todas").findAll({})
     }
 
     static async getOne(id) {
@@ -39,6 +43,12 @@ class PessoaControler {
             where: {
                 id: id
             }
+        })
+    }
+
+    static async restoreOne(id) {
+        await database.Pessoas.restore({
+            where: { id }
         })
     }
 
@@ -89,6 +99,7 @@ class PessoaControler {
             }
         })
     }
+
 }
 
 module.exports = PessoaControler

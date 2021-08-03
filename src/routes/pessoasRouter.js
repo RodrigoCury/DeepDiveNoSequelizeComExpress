@@ -4,8 +4,20 @@ const PessoaControler = require('../controllers/PessoaControler')
 // Router
 const router = require('express').Router()
 
-// GET List
+// GET List of Active People
 router.get('/', async (req, res, next) => {
+    try {
+        const listaDePessoasAtivas = await PessoaControler.getAllActive()
+        res.status(200).json(listaDePessoasAtivas)
+    } catch (error) {
+        res.status(400).json({
+            mensagem: error.message
+        })
+    }
+})
+
+// GET List of All People
+router.get('/todas', async (req, res, next) => {
     try {
         const listaDePessoas = await PessoaControler.getAll()
         res.status(200).json(listaDePessoas)
@@ -48,6 +60,18 @@ router.put('/:id', async (req, res, next) => {
         const id = req.params.id
         const pessoa = req.body
         await PessoaControler.updateOne(id, pessoa)
+        res.status(204).end()
+    } catch (error) {
+        res.status(400).json({
+            mensagem: error.message
+        })
+    }
+})
+
+router.post("/:id/restaurar", async (req, res, next) => {
+    try {
+        const id = req.params.id
+        await PessoaControler.restoreOne(id)
         res.status(204).end()
     } catch (error) {
         res.status(400).json({

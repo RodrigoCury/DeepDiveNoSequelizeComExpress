@@ -80,6 +80,18 @@ router.post("/:id/restaurar", async (req, res, next) => {
     }
 })
 
+router.post("/:id/cancelado", async (req, res, next) => {
+    try {
+        const id = req.params.id
+        await PessoaControler.cancelPerson(id)
+        res.status(200).json({ mensagem: `Matriculas ref. Estudante ${id} canceladas` })
+    } catch (error) {
+        res.status(400).json({
+            mensagem: error.message
+        })
+    }
+})
+
 router.delete('/:id', async (req, res, next) => {
     try {
         const id = req.params.id

@@ -1,4 +1,5 @@
 const database = require('../models')
+const { transaction } = require('sequelize')
 
 // DAO
 class PessoaControler {
@@ -98,6 +99,14 @@ class PessoaControler {
                 id: matriculaId,
                 estudante_id: estudanteId
             }
+        })
+    }
+
+    static async cancelPerson(estudanteId) {
+
+        database.sequelize.transaction(async transaction => {
+            await database.Pessoas.update({ ativo: false }, { where: { id: Number(estudanteId) } }, { transaction })
+            await database.Matriculas.update({ status: "cancelado" }, { where: { estudante_id: Number(estudanteId) } }, { transaction })
         })
     }
 

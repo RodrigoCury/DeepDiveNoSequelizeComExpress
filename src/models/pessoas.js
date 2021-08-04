@@ -62,9 +62,6 @@ module.exports = (sequelize, DataTypes) => {
       todas: {
         where: {},
       }
-    },
-    hooks: {
-      beforeValidate: (pessoa, options) => pessoa.role = pessoa.role.toLowerCase()
     }
   });
   return Pessoas;
